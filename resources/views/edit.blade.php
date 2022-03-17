@@ -34,7 +34,7 @@
                                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </div>
-                                <input value="{{ $karyawan->nama_karyawan }}" name="nama_karyawan" type="text"
+                                <input required value="{{ $karyawan->nama_karyawan }}" name="nama_karyawan" type="text"
                                     class="w-11/12 focus:outline-none focus:text-gray-600 p-2" />
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                             d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <input value="{{ $karyawan->no_ktp }}" type="text" name="no_ktp"
+                                <input required value="{{ $karyawan->no_ktp }}" type="text" name="no_ktp"
                                     class="w-11/12 focus:outline-none focus:text-gray-600 p-2" placeholder="12341234" />
                             </div>
                         </div>
@@ -79,36 +79,45 @@
                             <th>Tahun Masuk</th>
                             <th>Tahun Lulus</th>
                             <th>Action</th>
-
-
                         </tr>
 
+                        @php
+                          $i = 0;   
+                          $x = 0;    
+                        @endphp
                         @foreach ($pendidikan as $item)
+                            
                             <tr>
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpendidikan[{{$i}}][nama_sekolah]"
                                             value="{{ $item->nama_sekolah }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpendidikan[{{$i}}][jurusan]"
                                             value="{{ $item->jurusan }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpendidikan[{{$i}}][tahun_masuk]"
                                             value="{{ $item->tahun_masuk }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpendidikan[{{$i}}][tahun_lulus]"
                                             value="{{ $item->tahun_lulus }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td><button type="button" name="add" class="removependidikan"
                                         class="btn btn-success">Remove</button>
                                 </td>
-
+                                @php
+                                    $i++;
+                                @endphp
                             </tr>
                         @endforeach
 
@@ -138,28 +147,34 @@
 
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpekerjaan[{{$x}}][perusahaan]"
                                             value="{{ $item->perusahaan }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpekerjaan[{{$x}}][jabatan]"
                                             value="{{ $item->jabatan }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpekerjaan[{{$x}}][tahun]"
                                             value="{{ $item->tahun }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
                                     <div class="w-full inline-flex border"><input type="text"
+                                            name="addpekerjaan[{{$x}}][keterangan]"
                                             value="{{ $item->keterangan }}"
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td><button type="button" class="removepekerjaan"
                                         class="btn btn-success">Remove</button>
                                 </td>
-
+                                @php
+                                $x++;
+                            @endphp
                             </tr>
                         @endforeach
 
@@ -175,10 +190,10 @@
                         Kembali
                     </a>
 
-                    <a href="/karyawan/data"
+                    <button type="submit"
                         class="border-2 border-blue-500 font-bold text-blue-500 px-4 py-3 transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white mr-6">
-                        Edit Data
-                    </a>
+                        Update Data
+                   </button>
                 </div>
             </div>
         </form>
@@ -186,4 +201,65 @@
     </div>
 </section>
 
-@include('partials.footer')
+</body>
+@include('sweetalert::alert')
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+<script>
+    var i = <?php echo json_encode($i)-1 ?>;
+    var x = <?php echo json_encode($x)-1 ?>;
+    
+    $("#add").click(function() {
+
+        ++i;
+
+        $("#dynamicTable").append(
+            '<tr><td> <div class="w-full inline-flex border"><input type="text" name="addpendidikan[' + i +
+            '][nama_sekolah]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div></td><td> <div class="w-full inline-flex border"><input type="text" name="addpendidikan[' +
+            i +
+            '][jurusan]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div></td><td> <div class="w-full inline-flex border"><input type="text" name="addpendidikan[' +
+            i +
+            '][tahun_masuk]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div></td><td> <div class="w-full inline-flex border"> <input type="text" name="addpendidikan[' +
+            i +
+            '][tahun_lulus]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div> </td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
+        );
+    });
+
+    $(document).on('click', '.remove-tr', function() {
+        $(this).parents('tr').remove();
+    });
+
+    $(document).on('click', '.removependidikan', function() {
+        $(this).parents('tr').remove();
+    });
+
+
+
+    $("#addPekerjaan").click(function() {
+
+        ++x;
+
+        $("#dynamicTablepekerjaan").append(
+            '<tr><td> <div class="w-full inline-flex border"><input type="text" name="addpekerjaan[' + i +
+            '][perusahaan]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div></td><td> <div class="w-full inline-flex border"><input type="text" name="addpekerjaan[' +
+            i +
+            '][jabatan]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div></td><td> <div class="w-full inline-flex border"><input type="text" name="addpekerjaan[' +
+            i +
+            '][tahun]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div></td><td> <div class="w-full inline-flex border"> <input type="text" name="addpekerjaan[' +
+            i +
+            '][keterangan]" class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div> </td><td><button type="button" class="btn btn-danger remove-kerja">Remove</button></td></tr>'
+        );
+    });
+
+    $(document).on('click', '.remove-kerja', function() {
+        $(this).parents('tr').remove();
+    });
+
+    $(document).on('click', '.removepekerjaan', function() {
+        $(this).parents('tr').remove();
+    });
+</script>
+
+</html>
+

@@ -101,6 +101,7 @@ class KaryawanController extends Controller
             'pekerjaan' => $pekerjaan
         ]);
 
+    
         foreach ($request->addpendidikan as $key => $value) {
             dataPendidikan::create([
                 'kode_karyawan' => $kodeKaryawan,
@@ -120,6 +121,9 @@ class KaryawanController extends Controller
                 'keterangan' => $value['keterangan'],
             ]);
         }
+
+        alert()->success('Pesan Sukses', 'Data Berhasil Tersimpan');
+        return redirect('/karyawan/data');
     }
 
     /**
@@ -148,14 +152,39 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $id = $request->kode_karyawan;
         dataDiri::where('kode_karyawan', $id)
             ->update([
                 'nama_karyawan' => $request->nama_karyawan,
                 'no_ktp' => $request->no_ktp,
                 'alamat' => $request->alamat,
+        ]);
+        $pendidikan = dataPendidikan::where('kode_karyawan', $id)->delete();    
+        foreach ($request->addpendidikan as $key => $value) {
+            dataPendidikan::create([
+                'kode_karyawan' => $id,
+                'nama_sekolah' => $value['nama_sekolah'],
+                'jurusan' => $value['jurusan'],
+                'tahun_masuk' => $value['tahun_masuk'],
+                'tahun_lulus' => $value['tahun_lulus'],
             ]);
+        }
+
+        $pekerjaan = dataPekerjaan::where('kode_karyawan', $id)->delete();
+        foreach ($request->addpekerjaan as $key => $value) {
+            dataPekerjaan::create([
+                'kode_karyawan' => $id,
+                'perusahaan' => $value['perusahaan'],
+                'jabatan' => $value['jabatan'],
+                'tahun' => $value['tahun'],
+                'keterangan' => $value['keterangan'],
+            ]);
+        }
+
+        alert()->success('Pesan Sukses', 'Data Berhasil Terupdate');
+        return redirect('/karyawan/detail/'.$id);
     }
 
     /**

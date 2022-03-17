@@ -43,7 +43,7 @@
 
                                 </div>
                                 <textarea name="alamat" type="text" class="w-11/12 focus:outline-none focus:text-gray-600 p-2"
-                                    placeholder="12341234"> </textarea>
+                                 >-</textarea>
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@
                                     </svg>
                                 </div>
                                 <input type="text" name="no_ktp"
-                                    class="w-11/12 focus:outline-none focus:text-gray-600 p-2" placeholder="12341234" />
+                                    class="w-11/12 focus:outline-none focus:text-gray-600 p-2" />
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                                         class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                             </td>
                             <td>
-                                <div class="w-full inline-flex border"><input type="text"
+                                <div class="w-full inline-flex border"><input type="text" value="-"
                                         name="addpekerjaan[0][keterangan]"
                                         class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                             </td>

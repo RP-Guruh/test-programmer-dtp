@@ -20,7 +20,7 @@ class CreateDataPekerjaansTable extends Migration
             $table->string('perusahaan');
             $table->string('jabatan');
             $table->string('tahun');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

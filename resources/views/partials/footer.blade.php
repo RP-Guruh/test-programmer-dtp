@@ -6,7 +6,7 @@ integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="ano
 <script>
     var i = 0;
     var x = 0;
-
+    
     $("#add").click(function() {
 
         ++i;

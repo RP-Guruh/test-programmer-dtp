@@ -19,7 +19,7 @@ class CreateDataDirisTable extends Migration
 
             $table->string('nama_karyawan');
             $table->string('no_ktp');
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
 
             $table->timestamps();
         });

@@ -128,17 +128,17 @@
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
-                                    <div class="w-full inline-flex border"><input type="text"
+                                    <div class="w-full inline-flex border"><input type="text" readonly
                                             value="{{ $item->jabatan }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
-                                    <div class="w-full inline-flex border"><input type="text"
+                                    <div class="w-full inline-flex border"><input type="text" readonly
                                             value="{{ $item->tahun }}" required
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
                                 <td>
-                                    <div class="w-full inline-flex border"><input type="text"
+                                    <div class="w-full inline-flex border"><input type="text" readonly
                                             value="{{ $item->keterangan }}"
                                             class="w-11/12 focus:outline-none focus:text-gray-600 p-2" /></div>
                                 </td>
